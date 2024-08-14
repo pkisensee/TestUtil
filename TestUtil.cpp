@@ -18,6 +18,8 @@
 #include <limits>
 #include <span>
 #include <vector>
+
+#include "Log.h"
 #include "Util.h"
 
 using namespace PKIsensee;
@@ -174,6 +176,15 @@ void TestFourCC()
   //test( Util::FourCC( "invalid" ) == 0xDEADBEEF ); // compiler error
 }
 
+void TestLog()
+{
+  PKLOG_ERR( "Testing error logging\n" );
+  PKLOG_WARN( "%s %d\n", "Testing warning logging", 42 );
+  PKLOG_SCRN( "%s %f\n", "Testing logging to screen", 42.42 );
+  PKLOG_NOTE( "Testing logging of notes\r\n" );
+  PKLOG_FILE( "%s\n", "Testing logging to file" );
+}
+
 int __cdecl main()
 {
   TestNumericConversion();
@@ -181,4 +192,5 @@ int __cdecl main()
   TestReverseBytes();
   TestPackBits();
   TestFourCC();
+  TestLog();
 }
