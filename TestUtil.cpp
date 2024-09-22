@@ -32,6 +32,38 @@ using namespace PKIsensee;
 #define test(e)   static_cast<void>( (e) || ( Util::DebugBreak(), 0 ) )
 #endif
 
+struct Size1 PK_PACKED_STRUCT
+{
+PK_START_PACK
+  int8_t a;
+PK_END_PACK
+};
+
+struct Size5 PK_PACKED_STRUCT
+{
+PK_START_PACK
+  int8_t  a;
+  int32_t b;
+PK_END_PACK
+};
+
+class Size15 PK_PACKED_STRUCT
+{
+PK_START_PACK
+  int8_t  a;
+  int16_t e;
+  int32_t b;
+  int64_t c;
+PK_END_PACK
+};
+
+void TestStructPacking()
+{
+  test( sizeof( Size1 ) == 1 );
+  test( sizeof( Size5 ) == 5 );
+  test( sizeof( Size15 ) == 15 );
+}
+
 void TestEndian()
 {
 #if defined(_WIN32)
@@ -187,10 +219,11 @@ void TestLog()
 
 int __cdecl main()
 {
-  TestNumericConversion();
+  TestStructPacking();
   TestEndian();
   TestReverseBytes();
   TestPackBits();
+  TestNumericConversion();
   TestFourCC();
   TestLog();
 }
